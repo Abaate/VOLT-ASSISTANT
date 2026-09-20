@@ -13,13 +13,15 @@ class Settings(BaseSettings):
     top_p: float = 0.9
     top_k: int = 40
     num_predict: int = 1024
+    request_timeout: float = 300.0
     auto_approve_safe_tools: bool = True
     auto_approve_medium_tools: bool = False
     auto_approve_high_tools: bool = False
     auto_approve_critical_tools: bool = False
     volt_workspace: Path = Path(".")
     database_path: Path = Path("data/memory.db")
-    model_config = SettingsConfigDict(env_file=".env", env_prefix="", case_sensitive=False)
+    skills_path: Path = Path("skills")
+    model_config = SettingsConfigDict(env_file=".env", env_prefix="", case_sensitive=False, extra="ignore")
 
     def workspace(self) -> Path:
         return self.volt_workspace.expanduser().resolve()
